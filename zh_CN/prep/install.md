@@ -58,59 +58,15 @@ root@host:/home/user#
 **除非你是大佬，或者能够自行处理类似 command not found 的问题，否则请你使用 Debian 8.x 以上或者 Ubuntu 16.04 以上的 Linux 系统。**
 本指南默认使用 Debian 10 系统作为示范。
 
-### 安装依赖软件
 
-首先安装脚本的依赖软件，根据你的 Linux 发行版选择以下命令。
 
-**注意：下文中需要你输入的命令均以 $ 开头，其他内容均来自系统执行命令的反馈，你可以通过比较自己屏幕上和文档中内容的异同来判断安装是否正确。**
-
-Debian/Ubuntu:
-
-```console
-$ apt update
-$ apt install curl
-```
-
-CentOS/RedHat :
-
-```console
-$ yum makecache
-$ yum install curl
-```
-
-Fedora:
-
-```console
-$ dnf makecache
-$ dnf install curl
-```
-
-openSUSE/SUSE:
-
-```console
-$ zypper refresh
-$ zypper install curl
-```
-
-### 下载安装脚本
-
-下载主程序安装脚本：
-
-```console
-$ curl -O https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0
-100 21613  100 21613    0     0   8732      0  0:00:02  0:00:02 --:--:--  8736
-```
 
 ### 执行安装
 
 安装 V2ray 主程序：
 
 ```console
-$ bash install-release.sh
+$ bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
 Downloading V2Ray archive: https://github.com/v2fly/v2ray-core/releases/download/v4.27.0/v2ray-linux-64.zip
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
@@ -183,13 +139,7 @@ Please execute the command: systemctl enable v2ray; systemctl start v2ray
 $ systemctl start v2ray
 ```
 
-在首次安装完成之后，V2Ray 不会自动启动，需要手动运行上述启动命令。
 
-设置开机自启动 V2Ray:
-
-```console
-$ systemctl enable v2ray
-```
 
 接下来看看 V2ray 是不是真的运行起来了:
 
@@ -234,7 +184,7 @@ $ systemctl stop v2ray
 在 VPS，重新执行一遍安装脚本就可以更新了，在更新过程中会自动重启 V2Ray，配置文件保持不变。
 
 ```console
-$ bash install-release.sh
+$ bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
 ```
 
 V2Ray 的更新策略是快速迭代，每周更新(无意外的情况下)。版本号的格式是 `vX.Y.Z`，如 `v2.44.0`。v 是固定的字母 v，version 的首字母；X、Y、Z 都是数字，X 是大版本号，每年更新一个大版本(现在是 v4.Y.Z，V2Ray 已经走到了第四个年头)，Y 是小版本，每周五更新一个小版本。Z 是区分正式版和测试版，Z 是 0 代表着是正式版，不是 0 说明是测试版。例如，v4.7.0 是正式版，v4.7.1 是测试版，建议只使用正式版，不手动指定的情况下 V2Ray 的安装脚本也只会安装最新的正式版。
